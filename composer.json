@@ -14,7 +14,8 @@
     "require": {
         "php": ">=5.3",
         "ext-curl": "*",
-	"php-curl-class/php-curl-class": "@dev"
+	"php-curl-class/php-curl-class": "@dev",
+        "nette/database": "^2.4"
     },
     "suggest": {
         "ext-mbstring": "*"

@@ -23,11 +23,32 @@ class MoySclad {
     
     private $error;
     private $curl;
-    
+    private static $counter = 0;
+    private $requestes = 0;
+
+
     public function __construct() {
 	$this->curl = new Curl(); 
 	$this->authorization();
+	++self::$counter;
     }
+    
+    private function getSessionRequestes() {
+	if (isset($_SESSION['requestes'])){
+	    $this->requestes = $_SESSION['requestes'];
+	} else {
+	    $this->requestes = 0;
+	}
+    }
+    
+    private function addSessionRequestes() {
+	if (isset($_SESSION['requestes'])){
+	    $_SESSION['requestes'] = $_SESSION['requestes']+1;
+	} else {
+	    $_SESSION['requestes'] = 1;
+	}
+    }
+    
     
     /**
      * Аутентификация по протоколу Basic Auth
@@ -47,6 +68,7 @@ class MoySclad {
      *	rows - Массив JSON объектов, представляющих собой Заказы Покупателей.
      */
     public function getCustomerOrder($limit = 25, $offset = 0, $search = null){
+	$this->addSessionRequestes();
 	$url = MOYSCLADURL."entity/customerorder";
 	$data = array('limit' => $limit, 'offset' => $offset, 'search' => $search);
 	$customerorders = $this->curl->get($url, $data);
@@ -63,6 +85,7 @@ class MoySclad {
      * rows - Массив JSON объектов, представляющих собой Контрагентов.
      */
     public function getCounterparties($limit = 25, $offset = 0){
+	$this->addSessionRequestes();
 	$url = MOYSCLADURL."entity/counterparty";
 	$data = array('limit' => $limit, 'offset' => $offset);
 	$counterparties = $this->curl->get($url, $data);
@@ -75,6 +98,7 @@ class MoySclad {
      * @return stdClass Object
      */
     public function getCounterparty($accountId) {
+	$this->addSessionRequestes();
 	$url = MOYSCLADURL."/entity/counterparty/".$accountId;
 	$counterparty = $this->curl->get($url);
 	return $counterparty;
@@ -88,6 +112,7 @@ class MoySclad {
      * @return stdClass Object массив JSON представлений контактных лиц Контрагента
      */
     public function getContactpersons($accountId, $limit = 25, $offset = 0){
+	$this->addSessionRequestes();
 	$url = MOYSCLADURL."/entity/counterparty/".$accountId."/contactpersons";
 	$data = array('limit' => $limit, 'offset' => $offset);
 	$contactpersons = $this->curl->get($url, $data);
