@@ -1,0 +1,6 @@
+log/
+tmp/
+nbproject/
+vendor/
+composer.lock
+public_html/configuser.php

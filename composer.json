@@ -1,0 +1,23 @@
+{
+    "name": "php-moy-sclad/php-moy-sclad",
+    "description": "модуль для импорта заказов и клиентов из CRM Мой Склад",
+    "homepage": "https://github.com/dron79-79/php-moy-sclad",
+    "license": "Unlicense",
+    "keywords": [
+        "php", "moy-sclad-export"
+    ],
+    "authors": [
+        {
+            "name": "Andrey Dashko"
+        }
+    ],
+    "require": {
+        "php": ">=5.3",
+        "ext-curl": "*",
+	"php-curl-class/php-curl-class": "@dev"
+    },
+    "suggest": {
+        "ext-mbstring": "*"
+    }
+    
+}
